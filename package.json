@@ -1,0 +1,36 @@
+{
+  "name": "yuge-gallery-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "宇阁云图库 · 多空间视觉资产管理系统 前端",
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "build-only": "vite build",
+    "preview": "vite preview",
+    "type-check": "vue-tsc --noEmit",
+    "openapi": "node openapi.config.js"
+  },
+  "dependencies": {
+    "@vueuse/core": "^11.3.0",
+    "axios": "^1.7.9",
+    "naive-ui": "^2.40.1",
+    "pinia": "^2.2.6",
+    "qrcode.vue": "^3.11.0",
+    "tslib": "^2.8.1",
+    "vue": "^3.5.13",
+    "vue-cropper": "^1.1.4",
+    "vue-router": "^4.4.5",
+    "wordcloud2": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.3",
+    "@umijs/openapi": "^1.13.0",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "npm-run-all2": "^7.0.1",
+    "typescript": "~5.6.3",
+    "vite": "^6.0.1",
+    "vue-tsc": "^2.1.10"
+  }
+}

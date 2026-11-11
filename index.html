@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark" data-theme-mode="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="宇阁云图库 · 多空间视觉资产管理系统 —— 公共图库、团队空间、AI 扩图、实时协同编辑。" />
+    <title>宇阁云图库</title>
+
+    <!--
+      分享卡片（微信 / QQ / 飞书 / Twitter 抓这些标签）。
+      ⚠️ og:url 与 og:image 必须是**绝对地址** —— 这些爬虫不认相对路径。
+      换域名时只需改下面两处的 origin。
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="宇阁云图库" />
+    <meta property="og:title" content="宇阁云图库" />
+    <meta property="og:description" content="多空间视觉资产管理系统 —— 公共图库、团队空间、AI 扩图、实时协同编辑。" />
+    <meta property="og:url" content="http://39.104.13.97/" />
+    <meta property="og:image" content="http://39.104.13.97/og-cover.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="宇阁云图库" />
+    <meta name="twitter:description" content="多空间视觉资产管理系统" />
+    <meta name="twitter:image" content="http://39.104.13.97/og-cover.png" />
+
+    <!--
+      首屏防闪烁（FOUC）防护
+      必须内联在此处：早于任何 CSS 与打包后的 JS 执行，先把 data-theme 写到 <html> 上。
+      优先级：用户手动选择 > 默认深色。（不把系统偏好放在默认位，否则系统为浅色时
+      会把默认主题带跑，违背"以暗色为主"的产品设定。）
+    -->
+    <script>
+      (function () {
+        var KEY = 'yuge-theme'
+        var mode = 'dark'
+        try {
+          var saved = localStorage.getItem(KEY)
+          if (saved) mode = saved
+        } catch (e) {}
+        var prefersLight =
+          window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
+        var theme = mode === 'system' ? (prefersLight ? 'light' : 'dark') : mode
+        var root = document.documentElement
+        root.setAttribute('data-theme', theme)
+        root.setAttribute('data-theme-mode', mode)
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

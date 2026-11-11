@@ -1,0 +1,42 @@
+/**
+ * 浅色主题覆盖层
+ * 只写需要变化的部分：变量 + 少量无法用变量表达的规则（投影、渐变、复合背景）。
+ * 新增主题 = 新增一个覆盖文件，组件代码零改动。
+ *
+ * 注意：浅色不是深色反相。主色必须加深（#6C7BFF 在浅底上对比度不足），
+ * 卡片层级靠投影建立而非亮度差。
+ */
+:root[data-theme='light'] {
+  --bg-base: #f5f6fa;
+  --bg-surface: #ffffff;
+  --bg-elevated: #ffffff;
+
+  --border: rgba(20, 24, 45, 0.09);
+  --border-strong: rgba(20, 24, 45, 0.16);
+
+  --text-primary: #181b26;
+  --text-secondary: #5c6478;
+  --text-tertiary: #8c93a6;
+
+  --accent: #5563e0;
+  --accent-hover: #4756d8;
+  --accent-pressed: #3c4bc4;
+  --accent-soft: rgba(85, 99, 224, 0.1);
+  --accent-2: #0e9e8c;
+  --accent-warm: #d97706;
+  --danger: #dc4b45;
+
+  --shadow-app: 0 18px 44px -16px rgba(24, 30, 60, 0.2);
+  --shadow-pop: 0 16px 40px -12px rgba(24, 30, 60, 0.28);
+  --shadow-card: 0 2px 10px -5px rgba(24, 30, 60, 0.18);
+  --shadow-card-hover: 0 14px 30px -16px rgba(24, 30, 60, 0.3);
+
+  /* 浅色下 Lightbox 舞台不能用黑底 */
+  --lb-stage: #edeff5;
+}
+
+/* 浅色下需要单独处理的内凹控件：不能靠亮度差，否则与白色面板糊在一起 */
+:root[data-theme='light'] .field-inset {
+  background: #f2f4f9;
+  border-color: transparent;
+}

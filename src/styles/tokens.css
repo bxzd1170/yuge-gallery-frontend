@@ -1,0 +1,68 @@
+/**
+ * 设计令牌 · 深色（默认主题）
+ * 与 design/视觉稿.html 中的令牌保持一致，改一处需同步。
+ * 组件层只允许引用 var(--x)，禁止硬编码色值 —— 这是主题可切换的前提。
+ */
+:root {
+  /* 层次 */
+  --bg-base: #0a0c12;
+  --bg-surface: #12151e;
+  --bg-elevated: #1a1f2b;
+
+  /* 描边 */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  /* 文字 */
+  --text-primary: #e8eaf0;
+  --text-secondary: #8b92a6;
+  --text-tertiary: #5c6377;
+
+  /* 主色 */
+  --accent: #6c7bff;
+  --accent-hover: #7d8aff;
+  --accent-pressed: #5a68e8;
+  --accent-soft: rgba(108, 123, 255, 0.14);
+  --accent-2: #35d0ba;
+  --accent-warm: #ffb86b;
+  --danger: #f0655f;
+  --success: #35d0ba;
+
+  /*
+    画廊瓦片比例（等高网格视图）。
+    1 / 1 最中性，但本库素材竖横接近各半（46% 竖 / 52% 横），必然裁切一部分：
+      想少裁竖图 → 改 4 / 3（更扁）；想少裁横图 → 改 3 / 4（更高）。
+    瀑布流视图不读这个值，永远保持原始比例。
+  */
+  --tile-ratio: 1 / 1;
+
+  /* 圆角 */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+
+  /* 投影 */
+  --shadow-app: 0 24px 60px -20px rgba(0, 0, 0, 0.9);
+  --shadow-pop: 0 20px 44px -12px rgba(0, 0, 0, 0.85);
+  --shadow-card: none;
+  --shadow-card-hover: 0 16px 32px -18px rgba(0, 0, 0, 0.7);
+
+  /* 图片悬停遮罩：覆盖在照片上，两种主题通用（浅色下也保持深色） */
+  --scrim: linear-gradient(to top, rgba(5, 6, 10, 0.92) 0%, rgba(5, 6, 10, 0.46) 46%, transparent 76%);
+
+  /*
+    Lightbox 照片舞台底色。
+    深色下用比页面底更黑的值（照片更突出）；
+    浅色下必须换成浅灰 —— 浅色主题里放黑底会非常跳（见 theme-light.css 的覆盖）。
+  */
+  --lb-stage: #05060a;
+
+  /* 字体 */
+  --font: "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "Segoe UI", system-ui,
+    -apple-system, sans-serif;
+
+  /* 尺寸 */
+  --rail-w: 64px;
+  --topbar-h: 64px;
+  --page-max: 1180px;
+}

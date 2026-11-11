@@ -1,0 +1,15 @@
+node_modules
+dist
+dist-ssr
+dist.tar.gz
+*.tar.gz
+*.local
+*.log
+
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+# openapi 生成物（如希望入库可删掉此条）
+# src/api

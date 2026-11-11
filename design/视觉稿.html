@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>宇阁云图库 · 静态视觉稿</title>
+<style>
+:root{
+  --bg-base:#0A0C12;
+  --bg-surface:#12151E;
+  --bg-elevated:#1A1F2B;
+  --border:rgba(255,255,255,.08);
+  --border-strong:rgba(255,255,255,.14);
+  --text-primary:#E8EAF0;
+  --text-secondary:#8B92A6;
+  --text-tertiary:#5C6377;
+  --accent:#6C7BFF;
+  --accent-soft:rgba(108,123,255,.14);
+  --accent-2:#35D0BA;
+  --accent-warm:#FFB86B;
+  --danger:#F0655F;
+  --r-sm:8px; --r-md:12px; --r-lg:16px;
+  --font:"PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:#05060A;color:var(--text-primary);font-family:var(--font);
+  padding:40px 32px 72px;-webkit-font-smoothing:antialiased;
+}
+.doc-head{max-width:1180px;margin:0 auto 40px}
+.doc-head h1{margin:0 0 8px;font-size:22px;font-weight:600;letter-spacing:-.01em}
+.doc-head p{margin:0;color:var(--text-secondary);font-size:13px;line-height:1.7}
+.tokens{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.token{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text-secondary);
+  background:var(--bg-surface);border:1px solid var(--border);padding:6px 10px;border-radius:99px}
+.dot{width:12px;height:12px;border-radius:4px}
+
+.frame{max-width:1180px;margin:0 auto 56px}
+.frame__label{display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:13px;color:var(--text-secondary)}
+.frame__label b{color:var(--text-primary);font-weight:600}
+.frame__label span{color:var(--text-tertiary);font-size:12px}
+
+.app{
+  width:1180px;height:720px;background:var(--bg-base);border:1px solid var(--border);
+  border-radius:var(--r-lg);overflow:hidden;position:relative;display:flex;
+  box-shadow:0 24px 60px -20px rgba(0,0,0,.9);
+}
+
+/* ---------- 图标栏 ---------- */
+.rail{
+  width:64px;flex:0 0 64px;background:#0C0F17;border-right:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;padding:16px 0;gap:8px;
+}
+.logo{
+  width:36px;height:36px;border-radius:11px;display:grid;place-items:center;
+  background:linear-gradient(140deg,#6C7BFF 0%,#35D0BA 100%);
+  font-size:17px;font-weight:600;color:#0A0C12;margin-bottom:14px;
+}
+.navbtn{
+  width:40px;height:40px;border-radius:11px;display:grid;place-items:center;
+  color:var(--text-tertiary);position:relative;cursor:pointer;
+}
+.navbtn svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
+.navbtn.on{color:#fff;background:var(--accent-soft)}
+.navbtn.on::before{content:"";position:absolute;left:-12px;width:3px;height:18px;
+  border-radius:2px;background:var(--accent)}
+.rail__spacer{flex:1}
+.rail__me{width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(140deg,#FFB86B,#F0655F);border:1.5px solid var(--border-strong)}
+
+/* ---------- 主体 ---------- */
+.main{flex:1;display:flex;flex-direction:column;min-width:0}
+.topbar{
+  height:64px;flex:0 0 64px;display:flex;align-items:center;gap:16px;
+  padding:0 22px;border-bottom:1px solid var(--border);
+}
+.space-chip{
+  display:flex;align-items:center;gap:10px;padding:7px 12px 7px 8px;border-radius:10px;
+  background:var(--bg-surface);border:1px solid var(--border);cursor:pointer;
+}
+.space-chip__ico{width:22px;height:22px;border-radius:6px;background:var(--accent-soft);
+  display:grid;place-items:center;color:var(--accent);font-size:12px}
+.space-chip__t{font-size:13px;font-weight:500}
+.space-chip svg{width:14px;height:14px;stroke:var(--text-tertiary);fill:none;stroke-width:1.8}
+
+.search{
+  flex:1;max-width:460px;height:38px;display:flex;align-items:center;gap:10px;
+  padding:0 12px;border-radius:10px;background:var(--bg-surface);border:1px solid var(--border);
+  color:var(--text-tertiary);font-size:13px;
+}
+.search svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8}
+kbd{
+  margin-left:auto;font-family:var(--font);font-size:11px;color:var(--text-secondary);
+  background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:5px;padding:2px 6px;
+}
+.topbar__right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.btn{
+  height:36px;padding:0 15px;border-radius:9px;border:1px solid transparent;cursor:pointer;
+  font-size:13px;font-family:var(--font);display:flex;align-items:center;gap:7px;
+}
+.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.btn.ghost{background:var(--bg-surface);border-color:var(--border);color:var(--text-primary)}
+.btn.primary{background:var(--accent);color:#fff;font-weight:500;
+  box-shadow:0 6px 18px -6px rgba(108,123,255,.7)}
+
+/* ---------- 工具条 ---------- */
+.toolbar{display:flex;align-items:center;gap:14px;padding:20px 22px 16px}
+.toolbar h2{margin:0;font-size:19px;font-weight:600;letter-spacing:-.01em}
+.pill{font-size:11px;color:var(--accent);background:var(--accent-soft);
+  padding:3px 9px;border-radius:99px;font-weight:500}
+.toolbar__right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.seg{display:flex;background:var(--bg-surface);border:1px solid var(--border);
+  border-radius:9px;padding:3px;gap:2px}
+.seg div{padding:5px 11px;border-radius:7px;font-size:12px;color:var(--text-secondary);cursor:pointer}
+.seg div.on{background:var(--bg-elevated);color:#fff;font-weight:500}
+.iconbtn{width:34px;height:34px;border-radius:9px;background:var(--bg-surface);
+  border:1px solid var(--border);display:grid;place-items:center;color:var(--text-secondary);cursor:pointer}
+.iconbtn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8}
+
+/* ---------- 瀑布流 ---------- */
+.scroll{flex:1;overflow:hidden;padding:0 22px 22px;position:relative}
+.masonry{columns:5;column-gap:14px}
+.card{break-inside:avoid;margin:0 0 14px;border-radius:var(--r-md);overflow:hidden;
+  position:relative;background:var(--bg-surface);border:1px solid var(--border);cursor:pointer}
+.card img{display:block;width:100%;height:auto}
+.card__ph{position:relative;display:block;line-height:0}
+/* 名称常驻：独立于照片的说明条，始终可见（识别信息） */
+.card__cap{padding:9px 12px 10px;background:var(--bg-surface)}
+.card__n{font-size:12.5px;font-weight:500;color:var(--text-primary);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* 标签悬停：次要元数据，压在照片上浮现，不占常驻空间 */
+.card__ov{
+  position:absolute;inset:0;display:flex;align-items:flex-end;
+  padding:10px 12px;opacity:0;
+  background:linear-gradient(to top,rgba(5,6,10,.92) 0%,rgba(5,6,10,.46) 46%,transparent 76%);
+}
+.card:hover .card__ov{opacity:1}
+.card__ovrow{display:flex;align-items:center;gap:8px;width:100%}
+.card__acts{margin-left:auto;display:flex;gap:6px}
+.card__acts i{width:24px;height:24px;border-radius:7px;background:rgba(255,255,255,.16);
+  display:grid;place-items:center;backdrop-filter:blur(4px)}
+.card__acts svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+.card__tags{display:flex;gap:5px;flex-wrap:wrap}
+.tag{font-size:10.5px;padding:2px 7px;border-radius:99px;
+  background:rgba(255,255,255,.11);color:#D6DAE6;backdrop-filter:blur(4px)}
+.card__check{
+  position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;
+  background:var(--accent);display:grid;place-items:center;
+  box-shadow:0 4px 12px -2px rgba(0,0,0,.6);
+}
+.card__check svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.card.sel{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.card.peek .card__ov{opacity:1}
+@media (hover:none){.card__ov{opacity:1}}
+
+/* ---------- 批量操作浮条 ---------- */
+.bulkbar{
+  position:absolute;left:50%;bottom:22px;transform:translateX(-50%);
+  display:flex;align-items:center;gap:6px;padding:8px 10px 8px 16px;border-radius:14px;
+  background:rgba(26,31,43,.92);border:1px solid var(--border-strong);
+  backdrop-filter:blur(14px);box-shadow:0 20px 44px -12px rgba(0,0,0,.85);
+}
+.bulkbar__n{font-size:13px;font-weight:600;margin-right:8px}
+.bulkbar__n em{font-style:normal;color:var(--accent)}
+.bulkbar__sep{width:1px;height:20px;background:var(--border);margin:0 6px}
+.bulkbar button{
+  height:30px;padding:0 12px;border-radius:8px;border:1px solid var(--border);
+  background:transparent;color:var(--text-primary);font-size:12.5px;
+  font-family:var(--font);cursor:pointer;display:flex;align-items:center;gap:6px;
+}
+.bulkbar button.warn{color:var(--danger);border-color:rgba(240,101,95,.3)}
+
+/* ---------- Lightbox ---------- */
+.lb{flex:1;display:flex;min-width:0;min-height:0}
+.lb__stage{flex:1;display:grid;place-items:center;position:relative;background:#07090E}
+.lb__stage img{max-width:82%;max-height:82%;border-radius:10px;
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.95)}
+.lb__nav{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;
+  border-radius:50%;background:rgba(26,31,43,.85);border:1px solid var(--border-strong);
+  display:grid;place-items:center;color:#fff}
+.lb__nav svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lb__nav.l{left:26px}.lb__nav.r{right:26px}
+.lb__bar{position:absolute;left:0;right:0;bottom:0;height:58px;display:flex;align-items:center;
+  gap:14px;padding:0 24px;background:linear-gradient(to top,rgba(5,6,10,.9),transparent);
+  font-size:12.5px;color:var(--text-secondary)}
+.lb__panel{width:318px;flex:0 0 318px;border-left:1px solid var(--border);
+  background:var(--bg-base);padding:20px 20px 116px;position:relative;overflow:hidden;min-height:0;
+  display:flex;flex-direction:column;gap:16px}
+.pnl__t{font-size:11px;letter-spacing:.08em;color:var(--text-tertiary);
+  text-transform:uppercase;margin-bottom:10px}
+.pnl__name{font-size:16px;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+.pnl__sub{font-size:12.5px;color:var(--text-secondary);line-height:1.6;margin:0}
+.kv{display:flex;justify-content:space-between;font-size:12.5px;padding:5px 0;
+  border-bottom:1px solid var(--border)}
+.kv span:first-child{color:var(--text-secondary)}
+.kv span:last-child{color:var(--text-primary)}
+.swatch{width:56px;height:26px;border-radius:7px;background:#3B4E5C;border:1px solid var(--border-strong)}
+.review{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;
+  color:var(--accent-2);background:rgba(53,208,186,.12);padding:4px 10px;border-radius:99px}
+.pnl__acts{position:absolute;left:20px;right:20px;bottom:20px;
+  display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pnl__acts button{height:36px;border-radius:10px;border:1px solid var(--border);
+  background:var(--bg-surface);color:var(--text-primary);font-size:12.5px;
+  font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer}
+.pnl__acts button.wide{grid-column:1/-1;background:var(--accent);border-color:transparent;
+  color:#fff;font-weight:500}
+
+/* ---------- 命令面板 ---------- */
+.palette-wrap{flex:1;display:grid;place-items:start center;padding-top:74px;position:relative}
+.palette-wrap::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 32%,rgba(108,123,255,.13),transparent 62%)}
+.palette{
+  width:600px;background:rgba(26,31,43,.96);border:1px solid var(--border-strong);
+  border-radius:var(--r-lg);overflow:hidden;backdrop-filter:blur(20px);
+  box-shadow:0 40px 80px -24px rgba(0,0,0,.95);position:relative;
+}
+.palette__in{height:56px;display:flex;align-items:center;gap:12px;padding:0 18px;
+  border-bottom:1px solid var(--border);font-size:14px;color:var(--text-tertiary)}
+.palette__in svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.9}
+.palette__in .caret{width:1.5px;height:18px;background:var(--accent);margin-left:-8px}
+.palette__body{padding:8px;max-height:400px;overflow:hidden}
+.pgroup{font-size:10.5px;letter-spacing:.08em;color:var(--text-tertiary);
+  text-transform:uppercase;padding:10px 12px 6px}
+.pitem{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:9px;font-size:13px}
+.pitem.on{background:var(--accent-soft)}
+.pitem__ico{width:26px;height:26px;border-radius:7px;background:rgba(255,255,255,.06);
+  display:grid;place-items:center;color:var(--text-secondary)}
+.pitem__ico svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
+.pitem__hint{margin-left:auto;font-size:11px;color:var(--text-tertiary)}
+
+/* ---------- ④ 管理台（高密度变体） ---------- */
+.console{width:204px;flex:0 0 204px;background:#0C0F17;border-right:1px solid var(--border);
+  display:flex;flex-direction:column;padding:16px 12px;overflow:hidden}
+.console__brand{display:flex;align-items:center;gap:10px;padding:0 6px 16px}
+.console__t{font-size:13px;font-weight:600}
+.console__s{font-size:10.5px;color:var(--text-tertiary);margin-top:2px}
+.console__grp{font-size:10px;letter-spacing:.1em;color:var(--text-tertiary);
+  padding:14px 8px 6px;text-transform:uppercase}
+.citem{display:flex;align-items:center;gap:9px;height:33px;padding:0 9px;border-radius:8px;
+  font-size:12.5px;color:var(--text-secondary);cursor:pointer}
+.citem svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.citem.on{background:var(--accent-soft);color:#fff;font-weight:500}
+.citem em{margin-left:auto;font-style:normal;font-size:10.5px;background:var(--accent);
+  color:#fff;padding:1px 6px;border-radius:99px}
+.console__ft{margin-top:auto;display:flex;align-items:center;gap:9px;height:33px;padding:0 9px;
+  font-size:12.5px;color:var(--text-tertiary)}
+.console__ft svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8}
+
+.adm{flex:1;padding:16px 22px 20px;display:flex;flex-direction:column;gap:14px;min-height:0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{background:var(--bg-surface);border:1px solid var(--border);border-radius:10px;padding:11px 14px}
+.kpi__l{font-size:11px;color:var(--text-tertiary)}
+.kpi__v{font-size:19px;font-weight:600;margin-top:5px;letter-spacing:-.02em}
+.kpi__v small{font-size:11.5px;font-weight:400;color:var(--text-tertiary);margin-left:5px;letter-spacing:0}
+.filters{display:flex;gap:8px;align-items:center}
+.fsel{height:33px;display:flex;align-items:center;gap:8px;padding:0 12px;border-radius:9px;
+  background:var(--bg-surface);border:1px solid var(--border);font-size:12.5px;
+  color:var(--text-secondary);white-space:nowrap}
+.fsel.grow{flex:1;max-width:236px;color:var(--text-tertiary)}
+.fsel svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;margin-left:auto}
+.fsel.grow svg{margin-left:0}
+.fbtn{height:33px;padding:0 16px;border-radius:9px;border:1px solid transparent;
+  background:var(--accent);color:#fff;font-size:12.5px;font-family:var(--font);font-weight:500;cursor:pointer}
+.fbtn.ghost{background:var(--bg-surface);border-color:var(--border);color:var(--text-primary);font-weight:400}
+.tblwrap{flex:1;min-height:0;background:var(--bg-surface);border:1px solid var(--border);
+  border-radius:12px;overflow:hidden}
+table.tbl{width:100%;border-collapse:collapse;font-size:12.5px;table-layout:fixed}
+.tbl thead th{height:37px;padding:0 12px;text-align:left;font-size:11px;font-weight:500;
+  color:var(--text-tertiary);border-bottom:1px solid var(--border);white-space:nowrap}
+.tbl tbody td{height:52px;padding:0 12px;border-bottom:1px solid var(--border);
+  color:var(--text-secondary);overflow:hidden}
+.tbl tbody tr:hover td{background:rgba(255,255,255,.03)}
+.tbl tbody tr:last-child td{border-bottom:0}
+.cellpic{display:flex;align-items:center;gap:10px}
+.cellpic img{width:46px;height:32px;border-radius:6px;object-fit:cover;flex:0 0 46px;background:#1A1F2B}
+.cellpic b{display:block;font-size:12.5px;font-weight:500;color:var(--text-primary);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cellpic s{display:block;text-decoration:none;font-size:10.5px;color:var(--text-tertiary);margin-top:2px}
+.ck{width:15px;height:15px;border-radius:4px;border:1px solid var(--border-strong);
+  display:inline-flex;align-items:center;justify-content:center}
+.ck.on{background:var(--accent);border-color:transparent}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:3px 9px;border-radius:99px}
+.badge i{width:5px;height:5px;border-radius:50%;display:block}
+.badge.ok{color:#5FE0C8;background:rgba(53,208,186,.13)}
+.badge.ok i{background:#35D0BA}
+.badge.wait{color:#FFC98A;background:rgba(255,184,107,.13)}
+.badge.wait i{background:#FFB86B}
+.badge.no{color:#F0908C;background:rgba(240,101,95,.13)}
+.badge.no i{background:#F0655F}
+.actb{display:flex;gap:7px;color:var(--text-tertiary)}
+.actb svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round}
+.pager{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--text-tertiary)}
+.pg{display:flex;gap:4px;margin-left:auto}
+.pg span{min-width:30px;height:30px;display:grid;place-items:center;border-radius:8px;
+  border:1px solid var(--border);font-size:12px;color:var(--text-secondary)}
+.pg span.on{background:var(--accent);color:#fff;border-color:transparent;font-weight:500}
+
+/* 管理台 · 浅色适配 */
+[data-theme="light"] .console{background:#FBFCFE}
+[data-theme="light"] .citem.on{color:var(--accent)}
+[data-theme="light"] .tbl tbody tr:hover td{background:rgba(20,24,45,.03)}
+[data-theme="light"] .cellpic img{background:#E8EAF0}
+[data-theme="light"] .badge.ok{color:#0B7A69;background:rgba(14,158,140,.12)}
+[data-theme="light"] .badge.wait{color:#9A5B06;background:rgba(217,119,6,.12)}
+[data-theme="light"] .badge.no{color:#A5342F;background:rgba(220,75,69,.12)}
+
+/* ===================== 主题层 =====================
+   架构说明（工程落地时的真实做法）：
+   1) tokens.css        —— 定义 :root 的全部语义变量（深色为默认值）
+   2) theme-light.css   —— 只写 [data-theme="light"] 的变量与必要覆盖
+   3) 组件层            —— 只引用 var(--x)，绝不出现硬编码色值
+   这样新增主题 = 新增一个覆盖文件，组件代码零改动。
+   下方就是这个结构的单文件版。
+   ================================================= */
+
+.tag.acc{background:var(--accent-soft);color:#A9B3FF}
+
+/* --- 浅色主题：变量覆盖 --- */
+:root[data-theme="light"]{
+  --bg-base:#F5F6FA;
+  --bg-surface:#FFFFFF;
+  --bg-elevated:#FFFFFF;
+  --border:rgba(20,24,45,.09);
+  --border-strong:rgba(20,24,45,.16);
+  --text-primary:#181B26;
+  --text-secondary:#5C6478;
+  --text-tertiary:#8C93A6;
+  --accent:#5563E0;
+  --accent-soft:rgba(85,99,224,.10);
+  --accent-2:#0E9E8C;
+  --accent-warm:#D97706;
+  --danger:#DC4B45;
+}
+
+/* --- 浅色主题：无法用变量表达的部分（投影 / 渐变 / 复合背景） --- */
+[data-theme="light"] body{background:#EAECF3}
+[data-theme="light"] .app{box-shadow:0 18px 44px -16px rgba(24,30,60,.20)}
+[data-theme="light"] .rail{background:#FBFCFE}
+[data-theme="light"] .logo{color:#fff}
+[data-theme="light"] .navbtn.on{color:var(--accent)}
+[data-theme="light"] .search{background:#F2F4F9;border-color:transparent}
+[data-theme="light"] kbd{background:rgba(20,24,45,.06)}
+[data-theme="light"] .btn.primary{box-shadow:0 6px 16px -6px rgba(85,99,224,.55)}
+[data-theme="light"] .seg{background:#F2F4F9;border-color:transparent}
+[data-theme="light"] .seg div.on{background:#fff;color:var(--text-primary);box-shadow:0 1px 3px rgba(20,24,45,.14)}
+[data-theme="light"] .card{box-shadow:0 2px 10px -5px rgba(24,30,60,.18)}
+[data-theme="light"] .bulkbar{background:rgba(255,255,255,.9);box-shadow:0 16px 40px -12px rgba(24,30,60,.28)}
+[data-theme="light"] .lb__stage{background:#EDEFF5}
+[data-theme="light"] .lb__stage img{box-shadow:0 24px 60px -20px rgba(24,30,60,.38)}
+[data-theme="light"] .lb__nav{background:rgba(255,255,255,.92);color:var(--text-primary);box-shadow:0 6px 20px -6px rgba(24,30,60,.34)}
+[data-theme="light"] .lb__bar{background:linear-gradient(to top,rgba(237,239,245,.95),rgba(237,239,245,0))}
+[data-theme="light"] .review{background:rgba(14,158,140,.10)}
+[data-theme="light"] .tag.acc{background:var(--accent-soft);color:var(--accent)}
+[data-theme="light"] .pitem__ico{background:rgba(20,24,45,.05)}
+[data-theme="light"] .palette{background:rgba(255,255,255,.97);box-shadow:0 30px 70px -24px rgba(24,30,60,.32)}
+[data-theme="light"] .palette-wrap::before{background:radial-gradient(circle at 50% 32%,rgba(85,99,224,.10),transparent 62%),rgba(20,24,45,.14)}
+
+/* --- 主题切换器 --- */
+.themesw{display:flex;gap:4px;margin-top:20px;padding:4px;width:max-content;
+  background:var(--bg-surface);border:1px solid var(--border);border-radius:10px}
+.themesw button{border:0;background:transparent;color:var(--text-secondary);cursor:pointer;
+  font-family:var(--font);font-size:12.5px;padding:7px 16px;border-radius:7px}
+.themesw button.on{background:var(--accent);color:#fff;font-weight:500}
+
+/* --- 主题切换过渡（只过渡颜色类属性，避免 transition:all 的性能坑） --- */
+body,.app,.rail,.topbar,.space-chip,.search,.seg,.seg div,.iconbtn,.btn,.card,.bulkbar,
+.lb__stage,.lb__panel,.lb__nav,.palette,.palette__in,.pitem,.pitem__ico,.navbtn,.review,
+.themesw,.themesw button,.tag.acc,.doc-head h1,.doc-head p,.frame__label,.token,
+.console,.citem,.kpi,.fsel,.fbtn,.tblwrap,.tbl tbody tr td,.pg span{
+  transition:background-color .2s ease,border-color .2s ease,color .2s ease,box-shadow .2s ease;
+}
+</style>
+<script>
+/* 首屏防闪烁（FOUC）：必须在样式应用前把主题写到 <html> 上。
+   真实工程里这段要内联在 index.html 的 <head> 中，且早于任何 CSS 请求。 */
+(function () {
+  var KEY = 'yuge-theme';
+  var root = document.documentElement;
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+  // 优先级：用户手动选择 > 默认深色。只有用户显式选了「跟随系统」才去读系统偏好，
+  // 否则系统是浅色时会把默认主题带跑，违背「以暗色为主」的产品设定。
+  var mode = saved || 'dark';
+  root.setAttribute('data-theme', mode === 'system' ? (prefersLight ? 'light' : 'dark') : mode);
+  root.setAttribute('data-theme-mode', mode);
+})();
+</script>
+</head>
+<body>
+
+<div class="doc-head">
+  <h1>宇阁云图库 · 静态视觉稿</h1>
+  <p>
+    方案 A「沉浸式画廊」的视觉验证。<b>深色为默认主题，支持实时切换</b>。图片使用真实 COS 内容，图片名称为示意数据。<br>
+    卡片采用<b>信息分层</b>：名称常驻（识别用），标签悬停浮现（元数据）。重点看：双主题一致性、信息层级、卡片与浮层质感。
+  </p>
+  <div class="themesw" role="group" aria-label="主题切换">
+    <button type="button" data-set="system">跟随系统</button>
+    <button type="button" data-set="dark" class="on">深色</button>
+    <button type="button" data-set="light">浅色</button>
+  </div>
+  <div class="tokens">
+    <div class="token"><i class="dot" style="background:var(--bg-base)"></i>底色 bg-base</div>
+    <div class="token"><i class="dot" style="background:var(--bg-surface)"></i>面板 bg-surface</div>
+    <div class="token"><i class="dot" style="background:var(--bg-elevated)"></i>浮层 bg-elevated</div>
+    <div class="token"><i class="dot" style="background:var(--accent)"></i>主色 accent</div>
+    <div class="token"><i class="dot" style="background:var(--accent-2)"></i>辅助 accent-2</div>
+    <div class="token"><i class="dot" style="background:var(--accent-warm)"></i>点缀 accent-warm</div>
+  </div>
+</div>
+
+<!-- ============ ① 画廊主页 ============ -->
+<section class="frame">
+  <div class="frame__label"><b>① 画廊主页</b><span>沉浸式 · 瀑布流 · 空间驱动导航</span></div>
+  <div class="app">
+
+    <aside class="rail">
+      <div class="logo">宇</div>
+      <div class="navbtn on"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+      <div class="navbtn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg></div>
+      <div class="navbtn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></div>
+      <div class="navbtn"><svg viewBox="0 0 24 24"><path d="M4 19V10M10 19V5M16 19v-6M22 19H2"/></svg></div>
+      <div class="rail__spacer"></div>
+      <div class="navbtn"><svg viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h10M18 18h2"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="16" cy="18" r="2"/></svg></div>
+      <div class="rail__me"></div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <div class="space-chip">
+          <div class="space-chip__ico">私</div>
+          <div class="space-chip__t">我的空间</div>
+          <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="search">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          搜索图片、标签或空间…
+          <kbd>Ctrl K</kbd>
+        </div>
+        <div class="topbar__right">
+          <button class="btn ghost"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg>选择</button>
+          <button class="btn primary"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>上传</button>
+        </div>
+      </header>
+
+      <div class="toolbar">
+        <h2>我的空间</h2>
+        <div class="pill">18 张图片</div>
+        <div class="toolbar__right">
+          <div class="seg">
+            <div class="on">网格</div><div>瀑布流</div>
+          </div>
+          <div class="iconbtn"><svg viewBox="0 0 24 24"><path d="M4 7h16M6 12h12M9 17h6"/></svg></div>
+          <div class="iconbtn"><svg viewBox="0 0 24 24"><path d="M3 5h18M6 12h12M10 19h4"/></svg></div>
+        </div>
+      </div>
+
+      <div class="scroll">
+        <div class="masonry">
+          <figure class="card peek"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-14_aZZjQaLdr0fkjT2I.webp"><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">人像</span><span class="tag">室内</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">木柜前的黄裙</div></div></figure>
+
+          <figure class="card"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-14_KLqvihPHeIb3x2Xz.webp"><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">人像</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">抱猫的午后</div></div></figure>
+
+          <figure class="card peek"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-14_1eesxzStxtBej4Rt.webp"><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">人物</span><span class="tag">二次元</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">水手服</div></div></figure>
+
+          <figure class="card sel"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-14_MHPHv0tFFsebPvHu.webp"><div class="card__check"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">人像</span><span class="tag">写真</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">金裙</div></div></figure>
+
+          <figure class="card"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-14_SdhF9BOmPc0pGJnt.webp"><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">街拍</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">粉色午后</div></div></figure>
+
+          <figure class="card"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-14_0X2IqIj9JhzsCfb8.webp"><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">日常</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">夏日西瓜</div></div></figure>
+
+          <figure class="card"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-14_qvhY1LWCY8E7TCCW.webp"><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">人像</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">窗前</div></div></figure>
+
+          <figure class="card"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-14_PCfdo67s0cl4xeXH.webp"><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">人像</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">条纹背心</div></div></figure>
+
+          <figure class="card"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-14_c5pjb4yESLRANAZ7.webp"><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">人像</span><span class="tag">窗台</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">双马尾</div></div></figure>
+
+          <figure class="card"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-12_fC29hqFGKryQrtrS.webp"><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">校园</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">制服</div></div></figure>
+
+          <figure class="card"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-12_PnmU2AsU4g1HJKwB.webp"><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">校园</span><span class="tag">外景</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">树下</div></div></figure>
+
+          <figure class="card"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-12_yiPm4UTh2AT78GhN.webp"><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">人像</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">草丛里的白毛衣</div></div></figure>
+
+          <figure class="card"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-12_ywmIN4dY2nkRm7jK.webp"><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">外景</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">蓝色长椅</div></div></figure>
+
+          <figure class="card"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-12_iMHAk2DxGKGdQzlI.webp"><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">人像</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">白衣黑裙</div></div></figure>
+
+          <figure class="card"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-12_4ySKtw8jGvZXW8sQ.webp"><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">校园</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">课间楼梯</div></div></figure>
+
+          <figure class="card"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-12_jfqUGqk2MDpRpczo.webp"><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">人像</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">午后窗边</div></div></figure>
+
+          <figure class="card"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-14_KLqvihPHeIb3x2Xz.webp"><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">人像</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">抱猫的午后 2</div></div></figure>
+
+          <figure class="card"><div class="card__ph"><img referrerpolicy="no-referrer" loading="lazy" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-14_SdhF9BOmPc0pGJnt.webp"><div class="card__ov"><div class="card__ovrow"><div class="card__tags"><span class="tag">街拍</span></div><div class="card__acts"><i><svg viewBox="0 0 24 24"><path d="M12 4v10M8 11l4 4 4-4M5 20h14"/></svg></i><i><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg></i></div></div></div></div><div class="card__cap"><div class="card__n">粉色午后 2</div></div></figure>
+        </div>
+
+        <div class="bulkbar">
+          <div class="bulkbar__n">已选 <em>1</em> 张</div>
+          <div class="bulkbar__sep"></div>
+          <button>批量编辑</button>
+          <button>移动到空间</button>
+          <button class="warn">删除</button>
+          <div class="bulkbar__sep"></div>
+          <button>取消</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ② Lightbox ============ -->
+<section class="frame">
+  <div class="frame__label"><b>② 图片详情</b><span>Lightbox 全屏浏览 · 不再是独立页面</span></div>
+  <div class="app" style="flex-direction:column">
+
+    <header class="topbar" style="flex:0 0 64px">
+      <button class="btn ghost" style="padding:0 12px">
+        <svg viewBox="0 0 24 24" style="stroke:currentColor;fill:none;stroke-width:2"><path d="M15 18l-6-6 6-6"/></svg>返回
+      </button>
+      <div style="font-size:14px;font-weight:500">木柜前的黄裙</div>
+      <div class="tag" style="margin-left:4px">人像</div>
+      <div class="tag">室内</div>
+      <div class="topbar__right">
+        <button class="btn ghost">下载</button>
+        <button class="btn ghost">分享</button>
+        <button class="btn primary">AI 扩图</button>
+      </div>
+    </header>
+
+    <div class="lb">
+      <div class="lb__stage">
+        <img referrerpolicy="no-referrer" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-14_aZZjQaLdr0fkjT2I.webp">
+        <div class="lb__nav l"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></div>
+        <div class="lb__nav r"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="lb__bar">
+          <span>3 / 18</span>
+          <span style="margin-left:auto">← → 切换 · Esc 退出 · 空格 收藏</span>
+        </div>
+      </div>
+
+      <aside class="lb__panel">
+        <div>
+          <h3 class="pnl__name">木柜前的黄裙</h3>
+          <p class="pnl__sub">拍摄于 2026-10-14 · 我的空间</p>
+          <div style="margin-top:12px"><span class="review">● 已通过审核</span></div>
+        </div>
+
+        <div>
+          <div class="pnl__t">图片信息</div>
+          <div class="kv"><span>尺寸</span><span>474 × 690</span></div>
+          <div class="kv"><span>大小</span><span>182 KB</span></div>
+          <div class="kv"><span>格式</span><span>WEBP</span></div>
+          <div class="kv"><span>主色调</span><span style="display:flex;align-items:center;gap:8px"><i style="width:22px;height:14px;border-radius:4px;background:#3B4E5C;border:1px solid var(--border-strong);display:inline-block"></i>#3B4E5C</span></div>
+        </div>
+
+        <div>
+          <div class="pnl__t">归属</div>
+          <div class="kv"><span>所属空间</span><span>我的空间</span></div>
+          <div class="kv"><span>上传者</span><span>lisi</span></div>
+          <div class="kv"><span>上传时间</span><span>2026-10-14</span></div>
+          <div class="kv"><span>最近编辑</span><span>2026-10-14</span></div>
+        </div>
+
+        <div>
+          <div class="pnl__t">标签</div>
+          <div class="card__tags">
+            <span class="tag acc">人像</span>
+            <span class="tag acc">室内</span>
+            <span class="tag acc">黄色</span>
+          </div>
+        </div>
+
+        <div class="pnl__acts">
+          <button>编辑信息</button>
+          <button>裁剪</button>
+          <button class="wide">按此图搜索相似图片</button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ③ 命令面板 ============ -->
+<section class="frame">
+  <div class="frame__label"><b>③ 命令面板</b><span>Ctrl / Cmd + K · 全局搜索与快捷操作</span></div>
+  <div class="app" style="flex-direction:column">
+    <header class="topbar" style="opacity:.28">
+      <div class="space-chip"><div class="space-chip__ico">私</div><div class="space-chip__t">我的空间</div><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+      <div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>搜索图片、标签或空间…<kbd>Ctrl K</kbd></div>
+    </header>
+
+    <div class="palette-wrap">
+      <div class="palette">
+        <div class="palette__in">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          黄裙<span class="caret"></span>
+        </div>
+        <div class="palette__body">
+          <div class="pgroup">图片</div>
+          <div class="pitem on">
+            <div class="pitem__ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 18l5-4 4 3 3-2 4 3"/></svg></div>
+            木柜前的黄裙<span class="pitem__hint">图片 · 474×690</span>
+          </div>
+          <div class="pitem">
+            <div class="pitem__ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 18l5-4 4 3 3-2 4 3"/></svg></div>
+            金裙<span class="pitem__hint">图片 · 474×919</span>
+          </div>
+
+          <div class="pgroup">跳转到</div>
+          <div class="pitem">
+            <div class="pitem__ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg></div>
+            我的空间<span class="pitem__hint">G</span>
+          </div>
+          <div class="pitem">
+            <div class="pitem__ico"><svg viewBox="0 0 24 24"><path d="M4 19V10M10 19V5M16 19v-6M22 19H2"/></svg></div>
+            空间用量分析<span class="pitem__hint">A</span>
+          </div>
+
+          <div class="pgroup">操作</div>
+          <div class="pitem">
+            <div class="pitem__ico"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
+            上传图片<span class="pitem__hint">U</span>
+          </div>
+          <div class="pitem">
+            <div class="pitem__ico"><svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg></div>
+            新建空间<span class="pitem__hint">N</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ④ 管理台 · 图片管理 ============ -->
+<section class="frame">
+  <div class="frame__label"><b>④ 管理台 · 图片管理</b><span>同一套深空语言的高密度变体 · 表格密集场景</span></div>
+  <div class="app">
+
+    <aside class="console">
+      <div class="console__brand">
+        <div class="logo" style="width:28px;height:28px;border-radius:9px;font-size:14px;margin:0">宇</div>
+        <div>
+          <div class="console__t">宇阁云图库</div>
+          <div class="console__s">管理后台</div>
+        </div>
+      </div>
+
+      <div class="console__grp">内容管理</div>
+      <div class="citem on"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M4 18l5-4 4 3 3-2 4 3"/></svg>图片管理</div>
+      <div class="citem"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg>审核队列<em>12</em></div>
+      <div class="citem"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4z"/><path d="M3 12l9 4 9-4M3 17l9 4 9-4"/></svg>空间管理</div>
+
+      <div class="console__grp">用户</div>
+      <div class="citem"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 20a7.5 7.5 0 0115 0"/></svg>用户列表</div>
+      <div class="citem"><svg viewBox="0 0 24 24"><path d="M12 3l2.4 5 5.6.7-4 3.9 1 5.6-5-2.7-5 2.7 1-5.6-4-3.9 5.6-.7z"/></svg>会员与兑换码</div>
+
+      <div class="console__ft"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>返回前台</div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <div style="font-size:13px;color:var(--text-tertiary)">内容管理&nbsp; / &nbsp;<span style="color:var(--text-primary);font-weight:500">图片管理</span></div>
+        <div class="topbar__right">
+          <button class="btn ghost">导出 CSV</button>
+          <button class="btn primary">批量审核</button>
+        </div>
+      </header>
+
+      <div class="adm">
+        <div class="kpis">
+          <div class="kpi"><div class="kpi__l">图片总数</div><div class="kpi__v">1,284</div></div>
+          <div class="kpi"><div class="kpi__l">待审核</div><div class="kpi__v" style="color:var(--accent-warm)">12</div></div>
+          <div class="kpi"><div class="kpi__l">今日上传</div><div class="kpi__v">36</div></div>
+          <div class="kpi"><div class="kpi__l">存储用量</div><div class="kpi__v">1.8<small>GB / 10 GB</small></div></div>
+        </div>
+
+        <div class="filters">
+          <div class="fsel grow"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>搜索图片名称 / ID</div>
+          <div class="fsel">分类：全部<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+          <div class="fsel">审核状态：全部<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+          <div class="fsel">上传者：全部<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+          <button class="fbtn">查询</button>
+          <button class="fbtn ghost">重置</button>
+        </div>
+
+        <div class="tblwrap">
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th style="width:34px"><span class="ck on"><svg viewBox="0 0 24 24" style="width:10px;height:10px;stroke:#fff;fill:none;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round"><path d="M5 13l4 4L19 7"/></svg></span></th>
+                <th>图片</th>
+                <th style="width:70px">分类</th>
+                <th style="width:96px">标签</th>
+                <th style="width:84px">尺寸</th>
+                <th style="width:96px">审核状态</th>
+                <th style="width:134px">上传时间</th>
+                <th style="width:84px">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr><td><span class="ck on"></span></td><td><div class="cellpic"><img loading="lazy" referrerpolicy="no-referrer" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-14_aZZjQaLdr0fkjT2I.webp"><div><b>木柜前的黄裙</b><s>ID 2109624703454</s></div></div></td><td>人像</td><td style="color:var(--text-tertiary)">室内</td><td style="color:var(--text-tertiary)">474×690</td><td><span class="badge ok"><i></i>已通过</span></td><td style="color:var(--text-tertiary);white-space:nowrap">2026-10-14 20:59</td><td><div class="actb"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg><svg viewBox="0 0 24 24"><path d="M6 5h12M10 5V4h4v1M7 5l1 14h8l1-14"/></svg></div></td></tr>
+            <tr><td><span class="ck"></span></td><td><div class="cellpic"><img loading="lazy" referrerpolicy="no-referrer" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-14_MHPHv0tFFsebPvHu.webp"><div><b>金裙</b><s>ID 2110342014154</s></div></div></td><td>人像</td><td style="color:var(--text-tertiary)">写真</td><td style="color:var(--text-tertiary)">474×919</td><td><span class="badge wait"><i></i>待审核</span></td><td style="color:var(--text-tertiary);white-space:nowrap">2026-10-14 21:02</td><td><div class="actb"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg><svg viewBox="0 0 24 24"><path d="M6 5h12M10 5V4h4v1M7 5l1 14h8l1-14"/></svg></div></td></tr>
+            <tr><td><span class="ck"></span></td><td><div class="cellpic"><img loading="lazy" referrerpolicy="no-referrer" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-12_PnmU2AsU4g1HJKwB.webp"><div><b>树下</b><s>ID 2109624723612</s></div></div></td><td>校园</td><td style="color:var(--text-tertiary)">外景</td><td style="color:var(--text-tertiary)">474×711</td><td><span class="badge ok"><i></i>已通过</span></td><td style="color:var(--text-tertiary);white-space:nowrap">2026-10-12 20:38</td><td><div class="actb"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg><svg viewBox="0 0 24 24"><path d="M6 5h12M10 5V4h4v1M7 5l1 14h8l1-14"/></svg></div></td></tr>
+            <tr><td><span class="ck"></span></td><td><div class="cellpic"><img loading="lazy" referrerpolicy="no-referrer" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-14_1eesxzStxtBej4Rt.webp"><div><b>水手服</b><s>ID 2110342030126</s></div></div></td><td>人物</td><td style="color:var(--text-tertiary)">二次元</td><td style="color:var(--text-tertiary)">474×643</td><td><span class="badge no"><i></i>已拒绝</span></td><td style="color:var(--text-tertiary);white-space:nowrap">2026-10-14 21:04</td><td><div class="actb"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg><svg viewBox="0 0 24 24"><path d="M6 5h12M10 5V4h4v1M7 5l1 14h8l1-14"/></svg></div></td></tr>
+            <tr><td><span class="ck"></span></td><td><div class="cellpic"><img loading="lazy" referrerpolicy="no-referrer" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-14_0X2IqIj9JhzsCfb8.webp"><div><b>夏日西瓜</b><s>ID 2110342024946</s></div></div></td><td>日常</td><td style="color:var(--text-tertiary)">夏日</td><td style="color:var(--text-tertiary)">474×758</td><td><span class="badge ok"><i></i>已通过</span></td><td style="color:var(--text-tertiary);white-space:nowrap">2026-10-14 21:01</td><td><div class="actb"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg><svg viewBox="0 0 24 24"><path d="M6 5h12M10 5V4h4v1M7 5l1 14h8l1-14"/></svg></div></td></tr>
+            <tr><td><span class="ck"></span></td><td><div class="cellpic"><img loading="lazy" referrerpolicy="no-referrer" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-12_4ySKtw8jGvZXW8sQ.webp"><div><b>课间楼梯</b><s>ID 2109624721061</s></div></div></td><td>校园</td><td style="color:var(--text-tertiary)">楼梯</td><td style="color:var(--text-tertiary)">450×300</td><td><span class="badge wait"><i></i>待审核</span></td><td style="color:var(--text-tertiary);white-space:nowrap">2026-10-12 20:37</td><td><div class="actb"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg><svg viewBox="0 0 24 24"><path d="M6 5h12M10 5V4h4v1M7 5l1 14h8l1-14"/></svg></div></td></tr>
+            <tr><td><span class="ck"></span></td><td><div class="cellpic"><img loading="lazy" referrerpolicy="no-referrer" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-14_qvhY1LWCY8E7TCCW.webp"><div><b>窗前</b><s>ID 2110342022367</s></div></div></td><td>人像</td><td style="color:var(--text-tertiary)">窗台</td><td style="color:var(--text-tertiary)">474×711</td><td><span class="badge ok"><i></i>已通过</span></td><td style="color:var(--text-tertiary);white-space:nowrap">2026-10-14 21:00</td><td><div class="actb"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg><svg viewBox="0 0 24 24"><path d="M6 5h12M10 5V4h4v1M7 5l1 14h8l1-14"/></svg></div></td></tr>
+            <tr><td><span class="ck"></span></td><td><div class="cellpic"><img loading="lazy" referrerpolicy="no-referrer" src="https://bxzd1170-1499956584.cos.ap-shanghai.myqcloud.com/public/2109593078964285441/2026-10-12_yiPm4UTh2AT78GhN.webp"><div><b>草丛里的白毛衣</b><s>ID 2109624716775</s></div></div></td><td>人像</td><td style="color:var(--text-tertiary)">草地</td><td style="color:var(--text-tertiary)">474×651</td><td><span class="badge ok"><i></i>已通过</span></td><td style="color:var(--text-tertiary);white-space:nowrap">2026-10-12 20:39</td><td><div class="actb"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9"/></svg><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/></svg><svg viewBox="0 0 24 24"><path d="M6 5h12M10 5V4h4v1M7 5l1 14h8l1-14"/></svg></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pager">
+          <span>共 1,284 条 · 已选 1 条</span>
+          <div class="pg"><span>‹</span><span class="on">1</span><span>2</span><span>3</span><span>…</span><span>108</span><span>›</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var KEY = 'yuge-theme';
+  var root = document.documentElement;
+  var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: light)') : null;
+  var btns = Array.prototype.slice.call(document.querySelectorAll('.themesw button'));
+
+  function mode() {
+    try { return localStorage.getItem(KEY) || 'dark'; } catch (e) { return 'dark'; }
+  }
+  function resolve(m) {
+    if (m === 'system') return (mq && mq.matches) ? 'light' : 'dark';
+    return m;
+  }
+  function render() {
+    var m = mode();
+    btns.forEach(function (b) { b.classList.toggle('on', b.dataset.set === m); });
+    root.setAttribute('data-theme', resolve(m));
+    root.setAttribute('data-theme-mode', m);
+  }
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      try { localStorage.setItem(KEY, b.dataset.set); } catch (e) {}
+      render();
+    });
+  });
+  // 处于「跟随系统」时，系统主题变化要实时响应
+  if (mq) {
+    var onChange = function () { if (mode() === 'system') render(); };
+    mq.addEventListener ? mq.addEventListener('change', onChange) : mq.addListener(onChange);
+  }
+  render();
+})();
+</script>
+</body>
+</html>

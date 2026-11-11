@@ -1,0 +1,166 @@
+@import './tokens.css';
+@import './theme-light.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* 键盘焦点环：只对键盘导航生效，鼠标点击不会出现 */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* 键盘焦点环：只对键盘导航生效，鼠标点击不会出现 */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 99px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+  background-clip: content-box;
+}
+
+/*
+  主题切换过渡：只过渡颜色类属性。
+  绝不用 transition: all —— 会引发无谓的重排与不可预期的动画。
+*/
+body,
+.layout,
+.rail,
+.topbar,
+.surface,
+.card,
+.inset {
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/*
+  Lightbox 打开时锁住背景滚动。
+  由 PictureLightbox 在 documentElement 上挂 .lightbox-open 类 ——
+  组件不需要知道滚动容器是哪一层，样式规则集中在这里。
+*/
+.lightbox-open .content {
+  overflow: hidden;
+}
+
+/* 通用工具类 */
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ==========================================================================
+   响应式：窄屏适配
+   --------------------------------------------------------------------------
+   实测（2026-10-16）在 390px 视口下**所有页面**都横向溢出到 525px，根因有两类：
+     ① 布局壳：顶栏三个子元素（空间切换器 + 搜索框 + 右侧按钮）加起来 407px，
+        而可用宽度只有 326px，flex 子项默认不允许缩到 min-content 以下 → 撑破视口；
+     ② 页面内：各类 toolbar / filters / bar 是 nowrap 的 flex 行，子项固定宽度。
+   这里用**全局层**统一处理这两类，避免逐个组件重复写媒体查询。
+   组件内仍可各自覆盖（scoped 样式优先级更高）。
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  :root {
+    /* 图标栏收窄，把横向空间让给内容 */
+    --rail-w: 54px;
+  }
+
+  /* ① 所有横排「工具条」允许换行 —— 这是最通用的解法 */
+  .toolbar,
+  .filters,
+  .bar,
+  .tabs,
+  .acts,
+  .crop__out,
+  .add,
+  .foot {
+    flex-wrap: wrap;
+  }
+
+  /* 工具条右侧那组按钮换行后不应再被推到最右 */
+  .toolbar__right {
+    margin-left: 0;
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  /* 已知会撑宽的固定宽度字段，窄屏改为占满一行 */
+  .fld--sm,
+  .fld--color,
+  .fld--size {
+    flex: 1 1 100%;
+  }
+
+  /* ② 表格：窄屏改为容器内横向滚动，而不是被 overflow:hidden 切掉列 */
+  .tbl-wrap {
+    overflow-x: auto;
+  }
+
+  /* 多列卡片区在窄屏单列，避免被 minmax 撑宽 */
+  .cols {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 560px) {
+  /* 顶栏：只留图标，文字隐藏，防止挤压 */
+  .search span,
+  .btn.primary span {
+    display: none;
+  }
+  .search {
+    justify-content: center;
+    padding: 0 10px;
+  }
+  .space-chip__t {
+    max-width: 84px;
+  }
+}
